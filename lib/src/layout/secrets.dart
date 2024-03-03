@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/src/configurations/secret_config.dart';
 import 'package:flutter_screen_lock/src/configurations/secrets_config.dart';
 
@@ -44,12 +44,12 @@ class _SecretsWithShakingAnimationState
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 80),
+      duration: const Duration(milliseconds: 500),
     );
 
     _animation = _animationController
         .drive(CurveTween(curve: Curves.elasticIn))
-        .drive(Tween<Offset>(begin: Offset.zero, end: const Offset(0.05, 0)))
+        .drive(Tween<Offset>(begin: Offset.zero, end: const Offset(0.24, 0)))
       ..addListener(() => setState(() {}))
       ..addStatusListener(
         (status) {
@@ -148,17 +148,9 @@ class Secret extends StatelessWidget {
       );
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: enabled ? config.enabledColor : config.disabledColor,
-        border: Border.all(
-          width: config.borderSize,
-          color: config.borderColor,
-        ),
-      ),
-      width: config.size,
-      height: config.size,
+    return Icon(
+      enabled ? CupertinoIcons.circle_fill : CupertinoIcons.circle,
+      size: 18,
     );
   }
 }

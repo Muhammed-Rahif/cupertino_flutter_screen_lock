@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screen_lock/src/configurations/key_pad_button_config.dart';
 
 /// Button in a [KeyPad].
@@ -26,11 +26,7 @@ class KeyPadButton extends StatelessWidget {
           size: config?.size,
           fontSize: config?.fontSize,
           foregroundColor: config?.foregroundColor,
-          backgroundColor: Colors.transparent,
-          buttonStyle: config?.buttonStyle?.copyWith(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.transparent),
-          ),
+          backgroundColor: const Color(0x00000000),
         ),
         child: child,
       );
@@ -42,14 +38,18 @@ class KeyPadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color =
+        child != null ? CupertinoColors.systemFill.resolveFrom(context) : null;
+
     return Container(
       height: config.size,
       width: config.size,
       margin: const EdgeInsets.all(10),
-      child: OutlinedButton(
+      child: CupertinoButton(
+        padding: EdgeInsets.zero,
+        borderRadius: BorderRadius.circular(150),
+        color: color,
         onPressed: onPressed,
-        onLongPress: onLongPress,
-        style: config.toButtonStyle(),
         child: child ?? const SizedBox.shrink(),
       ),
     );

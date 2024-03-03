@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:flutter_screen_lock/src/layout/key_pad.dart';
 
@@ -55,54 +55,33 @@ Future<void> screenLock({
   bool useLandscape = true,
   bool canCancel = true,
 }) async {
-  return Navigator.push<void>(
-    context,
-    PageRouteBuilder<void>(
-      opaque: false,
-      barrierColor: Colors.black.withOpacity(0.8),
-      pageBuilder: (context, animation, secondaryAnimation) => WillPopScope(
-        onWillPop: () async => canCancel && onCancelled == null,
-        child: ScreenLock(
-          correctString: correctString,
-          onUnlocked: onUnlocked ?? Navigator.of(context).pop,
-          onOpened: onOpened,
-          onValidate: onValidate,
-          onCancelled:
-              canCancel ? onCancelled ?? Navigator.of(context).pop : null,
-          onError: onError,
-          onMaxRetries: onMaxRetries,
-          maxRetries: maxRetries,
-          retryDelay: retryDelay,
-          title: title,
-          config: config,
-          secretsConfig: secretsConfig,
-          keyPadConfig: keyPadConfig,
-          delayBuilder: delayBuilder,
-          customizedButtonChild: customizedButtonChild,
-          customizedButtonTap: customizedButtonTap,
-          footer: footer,
-          cancelButton: cancelButton,
-          deleteButton: deleteButton,
-          inputController: inputController,
-          secretsBuilder: secretsBuilder,
-          useBlur: useBlur,
-          useLandscape: useLandscape,
-        ),
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0.0, 2.4),
-          end: Offset.zero,
-        ).animate(animation),
-        child: SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset.zero,
-            end: const Offset(0.0, 2.4),
-          ).animate(secondaryAnimation),
-          child: child,
-        ),
-      ),
+  return showCupertinoDialog(
+    barrierDismissible: canCancel && onCancelled == null,
+    context: context,
+    builder: (context) => ScreenLock(
+      correctString: correctString,
+      onUnlocked: onUnlocked ?? Navigator.of(context).pop,
+      onOpened: onOpened,
+      onValidate: onValidate,
+      onCancelled: canCancel ? onCancelled ?? Navigator.of(context).pop : null,
+      onError: onError,
+      onMaxRetries: onMaxRetries,
+      maxRetries: maxRetries,
+      retryDelay: retryDelay,
+      title: title,
+      config: config,
+      secretsConfig: secretsConfig,
+      keyPadConfig: keyPadConfig,
+      delayBuilder: delayBuilder,
+      customizedButtonChild: customizedButtonChild,
+      customizedButtonTap: customizedButtonTap,
+      footer: footer,
+      cancelButton: cancelButton,
+      deleteButton: deleteButton,
+      inputController: inputController,
+      secretsBuilder: secretsBuilder,
+      useBlur: useBlur,
+      useLandscape: useLandscape,
     ),
   );
 }
@@ -162,55 +141,34 @@ Future<void> screenLockCreate({
   bool useLandscape = true,
   bool canCancel = true,
 }) async {
-  return Navigator.push<void>(
-    context,
-    PageRouteBuilder<void>(
-      opaque: false,
-      barrierColor: Colors.black.withOpacity(0.8),
-      pageBuilder: (context, animation, secondaryAnimation) => WillPopScope(
-        onWillPop: () async => canCancel && onCancelled == null,
-        child: ScreenLock.create(
-          onConfirmed: onConfirmed,
-          onOpened: onOpened,
-          onValidate: onValidate,
-          onCancelled:
-              canCancel ? onCancelled ?? Navigator.of(context).pop : null,
-          onError: onError,
-          onMaxRetries: onMaxRetries,
-          maxRetries: maxRetries,
-          digits: digits,
-          retryDelay: retryDelay,
-          title: title,
-          confirmTitle: confirmTitle,
-          config: config,
-          secretsConfig: secretsConfig,
-          keyPadConfig: keyPadConfig,
-          delayBuilder: delayBuilder,
-          customizedButtonChild: customizedButtonChild,
-          customizedButtonTap: customizedButtonTap,
-          footer: footer,
-          cancelButton: cancelButton,
-          deleteButton: deleteButton,
-          inputController: inputController,
-          secretsBuilder: secretsBuilder,
-          useBlur: useBlur,
-          useLandscape: useLandscape,
-        ),
-      ),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(0.0, 2.4),
-          end: Offset.zero,
-        ).animate(animation),
-        child: SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset.zero,
-            end: const Offset(0.0, 2.4),
-          ).animate(secondaryAnimation),
-          child: child,
-        ),
-      ),
+  return showCupertinoDialog(
+    barrierDismissible: canCancel && onCancelled == null,
+    context: context,
+    builder: (context) => ScreenLock.create(
+      onConfirmed: onConfirmed,
+      onOpened: onOpened,
+      onValidate: onValidate,
+      onCancelled: canCancel ? onCancelled ?? Navigator.of(context).pop : null,
+      onError: onError,
+      onMaxRetries: onMaxRetries,
+      maxRetries: maxRetries,
+      digits: digits,
+      retryDelay: retryDelay,
+      title: title,
+      confirmTitle: confirmTitle,
+      config: config,
+      secretsConfig: secretsConfig,
+      keyPadConfig: keyPadConfig,
+      delayBuilder: delayBuilder,
+      customizedButtonChild: customizedButtonChild,
+      customizedButtonTap: customizedButtonTap,
+      footer: footer,
+      cancelButton: cancelButton,
+      deleteButton: deleteButton,
+      inputController: inputController,
+      secretsBuilder: secretsBuilder,
+      useBlur: useBlur,
+      useLandscape: useLandscape,
     ),
   );
 }

@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class ScreenLockConfig {
   const ScreenLockConfig({
     this.backgroundColor,
     this.titleTextStyle,
     this.textStyle,
-    this.buttonStyle,
     this.themeData,
   });
 
@@ -18,21 +17,18 @@ class ScreenLockConfig {
   /// Text style for other Texts.
   final TextStyle? textStyle;
 
-  /// Button style for keypad buttons.
-  final ButtonStyle? buttonStyle;
-
   /// Base [ThemeData] that is overridden by other specified values.
-  final ThemeData? themeData;
+  final CupertinoThemeData? themeData;
 
   /// Returns this config as a [ThemeData].
-  ThemeData toThemeData() {
-    return (themeData ?? ThemeData()).copyWith(
+  CupertinoThemeData toThemeData() {
+    return (themeData ?? const CupertinoThemeData()).copyWith(
       scaffoldBackgroundColor: backgroundColor,
-      outlinedButtonTheme: OutlinedButtonThemeData(style: buttonStyle),
-      textTheme: TextTheme(
-        headline6: titleTextStyle,
-        bodyText2: textStyle,
-      ),
+      // outlinedButtonTheme: OutlinedButtonThemeData(style: buttonStyle),
+      // textTheme: CupertinoTextThemeData(
+      //   headline6: titleTextStyle,
+      //   bodyText2: textStyle,
+      // ),
     );
   }
 
@@ -41,34 +37,25 @@ class ScreenLockConfig {
     Color? backgroundColor,
     TextStyle? titleTextStyle,
     TextStyle? textStyle,
-    ButtonStyle? buttonStyle,
-    ThemeData? themeData,
+    CupertinoThemeData? themeData,
   }) {
     return ScreenLockConfig(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       titleTextStyle: titleTextStyle ?? this.titleTextStyle,
       textStyle: textStyle ?? this.textStyle,
-      buttonStyle: buttonStyle ?? this.buttonStyle,
       themeData: themeData ?? this.themeData,
     );
   }
 
   /// Default [ScreenLockConfig].
-  static final ScreenLockConfig defaultConfig = ScreenLockConfig(
-    backgroundColor: const Color(0x88545454),
-    buttonStyle: OutlinedButton.styleFrom(
-      foregroundColor: const Color(0xFFFFFFFF),
-      backgroundColor: const Color(0xFF808080),
-      shape: const CircleBorder(),
-      padding: const EdgeInsets.all(0),
-      side: BorderSide.none,
-    ),
-    titleTextStyle: const TextStyle(
-      color: Colors.white,
+  static const ScreenLockConfig defaultConfig = ScreenLockConfig(
+    backgroundColor: Color(0x00000000),
+    titleTextStyle: TextStyle(
+      color: CupertinoColors.label,
       fontSize: 20,
     ),
-    textStyle: const TextStyle(
-      color: Colors.white,
+    textStyle: TextStyle(
+      color: CupertinoColors.label,
       fontSize: 18,
     ),
   );

@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 /// Configuration of a [Secret] widget.
 class SecretConfig {
   const SecretConfig({
     this.size = 16,
     this.borderSize = 1,
-    this.borderColor = Colors.white,
-    this.enabledColor = Colors.white,
-    this.disabledColor = Colors.transparent,
+    this.borderColor = CupertinoColors.white,
+    this.enabledColor = CupertinoColors.white,
+    this.disabledColor,
     this.builder,
   });
 
@@ -24,7 +24,7 @@ class SecretConfig {
   final Color enabledColor;
 
   /// Color for the disabled secret.
-  final Color disabledColor;
+  final Color? disabledColor;
 
   final Widget Function(
     BuildContext context,

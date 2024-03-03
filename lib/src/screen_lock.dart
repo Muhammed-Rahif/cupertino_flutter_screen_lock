@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:flutter_screen_lock/src/layout/key_pad.dart';
 
@@ -312,15 +312,20 @@ class _ScreenLockState extends State<ScreenLock> {
     }
 
     return Builder(
-      builder: (context) => DefaultTextStyle(
-        style: Theme.of(context).textTheme.headline6!,
-        textAlign: TextAlign.center,
-        child: buildDelay(
-          buildConfirmed(
-            widget.title,
+      builder: (context) {
+        var cupertinoTextStyle = CupertinoTheme.of(context).textTheme.textStyle;
+        final titleTextStyle = cupertinoTextStyle;
+
+        return DefaultTextStyle(
+          style: titleTextStyle,
+          textAlign: TextAlign.center,
+          child: buildDelay(
+            buildConfirmed(
+              widget.title,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -378,6 +383,14 @@ class _ScreenLockState extends State<ScreenLock> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Lock Icon
+                    const Icon(
+                      CupertinoIcons.lock_fill,
+                      size: 30,
+                      color: CupertinoColors.systemBlue,
+                    ),
+                    const SizedBox(height: 40),
+
                     buildHeadingText(),
                     buildSecrets(),
                   ],
@@ -395,17 +408,18 @@ class _ScreenLockState extends State<ScreenLock> {
       Widget child = buildContent();
       if (useBlur) {
         return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3.5, sigmaY: 3.5),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: child,
         );
       }
       return child;
     }
 
-    return Theme(
+    return CupertinoTheme(
       data: (widget.config ?? ScreenLockConfig.defaultConfig).toThemeData(),
-      child: Scaffold(
-        body: SafeArea(
+      child: Container(
+        color: const Color(0x00000000),
+        child: SafeArea(
           child: buildContentWithBlur(useBlur: widget.useBlur),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:flutter_screen_lock/src/layout/key_pad_button.dart';
 
@@ -26,19 +26,32 @@ class KeyPad extends StatelessWidget {
   final Widget? deleteButton;
   final Widget? cancelButton;
 
+  TextStyle getTextStyle(BuildContext context, [bool isText = false]) {
+    var cupertinoTextStyle = CupertinoTheme.of(context).textTheme.textStyle;
+    final btnTextStyle = cupertinoTextStyle.copyWith(
+      fontSize: isText ? null : 30,
+    );
+    return btnTextStyle;
+  }
+
   KeyPadButtonConfig get actionButtonConfig =>
       config.actionButtonConfig ?? const KeyPadButtonConfig(fontSize: 18);
 
-  Widget _buildDeleteButton() {
+  Widget _buildDeleteButton(BuildContext context) {
+    print(getTextStyle(context).color);
     return KeyPadButton.transparent(
       onPressed: () => inputState.removeCharacter(),
       onLongPress: config.clearOnLongPressed ? () => inputState.clear() : null,
       config: actionButtonConfig,
-      child: deleteButton ?? const Icon(Icons.backspace),
+      child: deleteButton ??
+          Icon(
+            CupertinoIcons.delete_left,
+            color: getTextStyle(context).color,
+          ),
     );
   }
 
-  Widget _buildCancelButton() {
+  Widget _buildCancelButton(BuildContext context) {
     if (didCancelled == null) {
       return _buildHiddenButton();
     }
@@ -47,8 +60,9 @@ class KeyPad extends StatelessWidget {
       onPressed: didCancelled,
       config: actionButtonConfig,
       child: cancelButton ??
-          const Text(
+          Text(
             'Cancel',
+            style: getTextStyle(context, true),
             textAlign: TextAlign.center,
           ),
     );
@@ -61,14 +75,14 @@ class KeyPad extends StatelessWidget {
     );
   }
 
-  Widget _buildRightSideButton() {
+  Widget _buildRightSideButton(BuildContext context) {
     return ValueListenableBuilder<String>(
       valueListenable: inputState.currentInput,
       builder: (context, value, child) {
         if (!enabled || value.isEmpty) {
-          return _buildCancelButton();
+          return _buildCancelButton(context);
         } else {
-          return _buildDeleteButton();
+          return _buildDeleteButton(context);
         }
       },
     );
@@ -97,7 +111,10 @@ class KeyPad extends StatelessWidget {
         return KeyPadButton(
           config: config.buttonConfig,
           onPressed: enabled ? () => inputState.addCharacter(input) : null,
-          child: Text(display),
+          child: Text(
+            display,
+            style: getTextStyle(context),
+          ),
         );
       }),
     );
@@ -115,9 +132,12 @@ class KeyPad extends StatelessWidget {
         KeyPadButton(
           config: config.buttonConfig,
           onPressed: enabled ? () => inputState.addCharacter(input) : null,
-          child: Text(display),
+          child: Text(
+            display,
+            style: getTextStyle(context),
+          ),
         ),
-        _buildRightSideButton(),
+        _buildRightSideButton(context),
       ],
     );
   }

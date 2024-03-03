@@ -174,17 +174,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        keyPadConfig: KeyPadConfig(
-                          buttonConfig: KeyPadButtonConfig(
-                            buttonStyle: OutlinedButton.styleFrom(
-                              textStyle: const TextStyle(
-                                color: Colors.orange,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              shape: const RoundedRectangleBorder(),
-                              backgroundColor: Colors.deepOrange,
-                            ),
-                          ),
+                        keyPadConfig: const KeyPadConfig(
+                          buttonConfig: KeyPadButtonConfig(),
                           displayStrings: [
                             '零',
                             '壱',
