@@ -38,7 +38,6 @@ class KeyPad extends StatelessWidget {
       config.actionButtonConfig ?? const KeyPadButtonConfig(fontSize: 18);
 
   Widget _buildDeleteButton(BuildContext context) {
-    print(getTextStyle(context).color);
     return KeyPadButton.transparent(
       onPressed: () => inputState.removeCharacter(),
       onLongPress: config.clearOnLongPressed ? () => inputState.clear() : null,
