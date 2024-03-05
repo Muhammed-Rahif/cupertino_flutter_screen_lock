@@ -52,7 +52,7 @@ Future<void> screenLock({
   InputController? inputController,
   SecretsBuilderCallback? secretsBuilder,
   bool useBlur = true,
-  bool useLandscape = true,
+  bool useLandscape = false,
   bool canCancel = true,
 }) async {
   return showCupertinoDialog(
@@ -138,7 +138,7 @@ Future<void> screenLockCreate({
   InputController? inputController,
   SecretsBuilderCallback? secretsBuilder,
   bool useBlur = true,
-  bool useLandscape = true,
+  bool useLandscape = false,
   bool canCancel = true,
 }) async {
   return showCupertinoDialog(
