@@ -6,6 +6,7 @@ class ScreenLockConfig {
     this.titleTextStyle,
     this.textStyle,
     this.themeData,
+    this.primaryColor,
   });
 
   /// Background color of the ScreenLock.
@@ -17,6 +18,9 @@ class ScreenLockConfig {
   /// Text style for other Texts.
   final TextStyle? textStyle;
 
+  /// Primary color of the ScreenLock.
+  final Color? primaryColor;
+
   /// Base [ThemeData] that is overridden by other specified values.
   final CupertinoThemeData? themeData;
 
@@ -24,6 +28,7 @@ class ScreenLockConfig {
   CupertinoThemeData toThemeData() {
     return (themeData ?? const CupertinoThemeData()).copyWith(
       scaffoldBackgroundColor: backgroundColor,
+      primaryColor: primaryColor,
       // outlinedButtonTheme: OutlinedButtonThemeData(style: buttonStyle),
       // textTheme: CupertinoTextThemeData(
       //   headline6: titleTextStyle,
@@ -49,6 +54,7 @@ class ScreenLockConfig {
 
   /// Default [ScreenLockConfig].
   static const ScreenLockConfig defaultConfig = ScreenLockConfig(
+    primaryColor: CupertinoColors.systemYellow,
     backgroundColor: Color(0x00000000),
     titleTextStyle: TextStyle(
       color: CupertinoColors.label,

@@ -372,36 +372,37 @@ class _ScreenLockState extends State<ScreenLock> {
     }
 
     Widget buildContent() {
-      return OrientationBuilder(
-        builder: (context, orientation) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flex(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              direction: orientations[orientation]!,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Lock Icon
-                    const Icon(
-                      CupertinoIcons.lock_fill,
-                      size: 30,
-                      color: CupertinoColors.systemBlue,
-                    ),
-                    const SizedBox(height: 40),
+      final primaryColor = CupertinoTheme.of(context).primaryColor;
 
-                    buildHeadingText(),
-                    buildSecrets(),
-                  ],
-                ),
-                buildKeyPad(),
-              ],
-            ),
-            if (widget.footer != null) widget.footer!,
-          ],
-        ),
-      );
+      return OrientationBuilder(
+          builder: (context, orientation) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flex(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    direction: orientations[orientation]!,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Lock Icon
+                          Icon(
+                            CupertinoIcons.lock_fill,
+                            size: 30,
+                            color: primaryColor,
+                          ),
+                          const SizedBox(height: 40),
+
+                          buildHeadingText(),
+                          buildSecrets(),
+                        ],
+                      ),
+                      buildKeyPad(),
+                    ],
+                  ),
+                  if (widget.footer != null) widget.footer!,
+                ],
+              ));
     }
 
     Widget buildContentWithBlur({required bool useBlur}) {
@@ -416,7 +417,7 @@ class _ScreenLockState extends State<ScreenLock> {
     }
 
     return CupertinoTheme(
-      data: (widget.config ?? ScreenLockConfig.defaultConfig).toThemeData(),
+      data: widget.config?.toThemeData() ?? CupertinoTheme.of(context),
       child: Container(
         color: const Color(0x00000000),
         child: SafeArea(

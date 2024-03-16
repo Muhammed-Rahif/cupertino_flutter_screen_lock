@@ -151,6 +151,7 @@ class Secret extends StatelessWidget {
     return Icon(
       enabled ? CupertinoIcons.circle_fill : CupertinoIcons.circle,
       size: 18,
+      color: CupertinoTheme.of(context).primaryColor,
     );
   }
 }
